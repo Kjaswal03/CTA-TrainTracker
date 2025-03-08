@@ -22,7 +22,14 @@ class TrainLinesViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = lines[indexPath.row]
+        let trainLine = lines[indexPath.row]
+        cell.textLabel?.text = trainLine
+    
+        // Set the background color based on the trai line
+        cell.backgroundColor = colorForTrainLine(trainLine)
+        
+        // Leave the
+        cell.textLabel?.textColor = .black
         return cell
     }
     
@@ -35,6 +42,30 @@ class TrainLinesViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showStops", let destinationVC = segue.destination as? StopsViewController, let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.lineCode = lines[indexPath.row]
+        }
+    }
+    
+    // Function to assign colors to each train line 
+    func colorForTrainLine(_ trainLine: String) -> UIColor {
+        switch trainLine {
+        case "Red Line":
+            return .systemRed
+        case "Blue Line":
+            return .systemBlue
+        case "Brown Line":
+            return .systemBrown
+        case "Green Line":
+            return .systemGreen
+        case "Orange Line":
+            return .systemOrange
+        case "Purple Line":
+            return .systemPurple
+        case "Pink Line":
+            return .systemPink
+        case "Yellow Line":
+            return .systemYellow
+        default:
+            return .white
         }
     }
 }
